@@ -129,6 +129,7 @@ class AuthController extends Controller
         $refreshToken = $this->jwtService->generateRefreshToken($user);
 
         return $this->apiResponse(false, 0, 'OTP verified successfully.', [
+            'token' => $accessToken,
             'access_token' => $accessToken,
             'refresh_token' => $refreshToken,
             'token_type' => 'Bearer',

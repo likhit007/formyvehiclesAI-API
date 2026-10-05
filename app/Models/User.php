@@ -41,4 +41,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(OtpVerification::class);
     }
+
+    /**
+     * @return HasMany<Vehicle, $this>
+     */
+    public function vehicles(): HasMany
+    {
+        return $this->hasMany(Vehicle::class);
+    }
 }
