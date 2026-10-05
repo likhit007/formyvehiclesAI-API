@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OtpVerification extends Model
 {
     public $timestamps = false;
 
+    /**
+     * @var list<string>
+     */
     protected $fillable = [
-        'id',
         'user_id',
         'mobile_number',
         'code',
@@ -17,14 +20,20 @@ class OtpVerification extends Model
         'consumed',
     ];
 
-    protected $guarded = [];
-
+    /**
+     * @var array<string, string>
+     */
     protected $casts = [
+        'user_id' => 'integer',
         'expires_at' => 'datetime',
         'consumed' => 'boolean',
     ];
 
-    protected $keyType = 'string';
-
-    public $incrementing = false;
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

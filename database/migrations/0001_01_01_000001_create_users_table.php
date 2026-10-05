@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('name');
             $table->string('mobile_number')->unique();
             $table->string('country_code');
-            $table->foreignUuid('state_id')->constrained('states');
+            $table->foreignId('state_id')->constrained('states');
             $table->boolean('terms_accepted')->default(false);
             $table->timestamps();
         });

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\JwtService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Auth::viaRequest('jwt', function (Request $request) {
+            return app(JwtService::class)->authenticateRequest($request);
+        });
     }
 }

@@ -2,28 +2,43 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['id', 'name', 'state_id', 'country_code', 'mobile_number', 'terms_accepted'])]
+#[Fillable(['name', 'state_id', 'country_code', 'mobile_number', 'terms_accepted'])]
 #[Hidden(['remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
+    /**
+     * @var array<string, string>
+     */
     protected $casts = [
         'terms_accepted' => 'boolean',
+        'state_id' => 'integer',
     ];
 
-    protected $guarded = [];
+    /**
+     * @return BelongsTo<State, $this>
+     */
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    /**
+     * @return HasMany<OtpVerification, $this>
+     */
+    public function otpVerifications(): HasMany
+    {
+        return $this->hasMany(OtpVerification::class);
+    }
 }
