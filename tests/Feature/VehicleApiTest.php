@@ -136,13 +136,16 @@ test('user can add a new vehicle', function () {
             'errorCode' => 0,
             'message' => 'Vehicle added successfully.',
             'data' => [
-                'registration_number' => 'KL 56 E 6332',
-                'model_name' => 'GLAMOUR 125 Fi',
-                'user_id' => $user->id,
-                'vehicle_type_id' => $vehicleType->id,
-                'brand_id' => $brand->id,
-                'vehicle_model_id' => $model->id,
-            ],
+                'is_vehicle_added' => true,
+                'vehicle' => [
+                    'registration_number' => 'KL 56 E 6332',
+                    'model_name' => 'GLAMOUR 125 Fi',
+                    'user_id' => $user->id,
+                    'vehicle_type_id' => $vehicleType->id,
+                    'brand_id' => $brand->id,
+                    'vehicle_model_id' => $model->id,
+                ]
+            ]
         ]);
 
     $this->assertDatabaseHas('vehicles', [

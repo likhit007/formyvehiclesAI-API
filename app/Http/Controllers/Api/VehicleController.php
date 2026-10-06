@@ -88,7 +88,7 @@ class VehicleController extends Controller
             'vehicleModel:id,name,vehicle_type,vehicle_category',
         ]);
 
-        return $this->apiResponse(false, 0, 'Vehicle added successfully.', $vehicle);
+        return $this->apiResponse(false, 0, 'Vehicle added successfully.', ['is_vehicle_added' => true, 'vehicle' => $vehicle]);
     }
 
     /**

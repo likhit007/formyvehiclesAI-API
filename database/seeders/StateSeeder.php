@@ -55,10 +55,10 @@ class StateSeeder extends Seeder
         ];
 
         foreach ($states as $state) {
-            State::create([
-                'name' => $state['name'],
-                'code' => $state['code'],
-            ]);
+            State::firstOrCreate(
+                ['name' => $state['name']],
+                ['code' => $state['code']]
+            );
         }
     }
 }

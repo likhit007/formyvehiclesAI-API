@@ -25,6 +25,7 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/user', [AuthController::class, 'me'])->name('user.profile');
+    Route::apiResource('/vehicles', VehicleController::class);
     Route::apiResource('/user/vehicles', VehicleController::class);
 
     Route::prefix('vehicle')->group(function () {
