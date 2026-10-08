@@ -144,8 +144,8 @@ test('user can add a new vehicle', function () {
                     'vehicle_type_id' => $vehicleType->id,
                     'brand_id' => $brand->id,
                     'vehicle_model_id' => $model->id,
-                ]
-            ]
+                ],
+            ],
         ]);
 
     $this->assertDatabaseHas('vehicles', [

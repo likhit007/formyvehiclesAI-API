@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\GenericController;
 use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\Api\VehicleModelController;
@@ -10,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::match(['get', 'post'], '/states-list', [StateController::class, 'index'])->name('states.list');
 Route::get('/states', [StateController::class, 'index'])->name('states.index');
+
+Route::prefix('generic')->group(function () {
+    Route::match(['get', 'post'], '/app-policy', [GenericController::class, 'appPolicy'])->name('generic.app-policy');
+});
 
 Route::prefix('auth')->group(function () {
     Route::post('/signup', [AuthController::class, 'signup']);
@@ -26,7 +31,7 @@ Route::prefix('auth')->group(function () {
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/user', [AuthController::class, 'me'])->name('user.profile');
     Route::apiResource('/vehicles', VehicleController::class);
-    Route::apiResource('/user/vehicles', VehicleController::class);
+    Route::apiResource('/user/vehicles', VehicleController::class)->names('user.vehicles');
 
     Route::prefix('vehicle')->group(function () {
         Route::match(['get', 'post'], '/vehicle-types-list', [VehicleTypeController::class, 'index'])->name('vehicle-types.list');
