@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
     'user_id',
@@ -76,5 +77,13 @@ class Vehicle extends Model
     public function vehicleModel(): BelongsTo
     {
         return $this->belongsTo(VehicleModel::class);
+    }
+
+    /**
+     * @return HasMany<VehicleWork, $this>
+     */
+    public function works(): HasMany
+    {
+        return $this->hasMany(VehicleWork::class);
     }
 }

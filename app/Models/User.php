@@ -49,4 +49,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Vehicle::class);
     }
+
+    /**
+     * @return HasMany<VehicleWork, $this>
+     */
+    public function vehicleWorks(): HasMany
+    {
+        return $this->hasMany(VehicleWork::class);
+    }
 }
